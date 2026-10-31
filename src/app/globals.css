@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/* Clinical, high-contrast theme. System fonts only (no network fetch — works offline). */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-line: #cbd5e1;
+  --color-line-soft: #e2e8f0;
+  --color-canvas: #f1f5f9;
+  --color-surface: #ffffff;
+
+  --color-brand: #0b5cad;
+  --color-brand-strong: #084785;
+  --color-brand-soft: #e0edfb;
+
+  --color-danger: #b91c1c;
+  --color-danger-soft: #fee2e2;
+  --color-warn: #a16207;
+  --color-warn-soft: #fef3c7;
+  --color-ok: #15803d;
+  --color-ok-soft: #dcfce7;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-canvas text-ink antialiased; font-size: 15px; }
+  :focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; }
+  h1 { @apply text-xl font-bold tracking-tight; }
+  h2 { @apply text-base font-semibold; }
+  table { @apply w-full border-collapse; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-line bg-surface px-3 py-2 text-sm font-semibold text-ink
+      hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap;
+  }
+  .btn-primary { @apply border-brand bg-brand text-white hover:bg-brand-strong; }
+  .btn-danger { @apply border-danger bg-danger text-white hover:opacity-90; }
+  .btn-ghost { @apply border-transparent bg-transparent hover:bg-line-soft; }
+  .btn-sm { @apply px-2 py-1 text-xs; }
+
+  .label { @apply mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-soft; }
+  .input {
+    @apply block w-full rounded-md border border-line bg-surface px-2.5 py-2 text-sm text-ink placeholder:text-muted
+      focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30 disabled:bg-canvas;
+  }
+  .input-flag-high { @apply border-danger bg-danger-soft; }
+  .input-flag-low { @apply border-warn bg-warn-soft; }
+  textarea.input { @apply min-h-24 leading-relaxed; }
+
+  .card { @apply rounded-lg border border-line bg-surface; }
+  .card-body { @apply p-4; }
+  .card-title { @apply flex items-center justify-between border-b border-line-soft px-4 py-2.5 text-sm font-bold; }
+
+  .badge { @apply inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-semibold; }
+  .badge-grey { @apply bg-line-soft text-ink-soft; }
+  .badge-blue { @apply bg-brand-soft text-brand-strong; }
+  .badge-red { @apply bg-danger-soft text-danger; }
+  .badge-amber { @apply bg-warn-soft text-warn; }
+  .badge-green { @apply bg-ok-soft text-ok; }
+
+  .table th { @apply border-b-2 border-line px-3 py-2 text-left text-xs font-bold uppercase tracking-wide text-ink-soft; }
+  .table td { @apply border-b border-line-soft px-3 py-2 align-top text-sm; }
+  .table tbody tr:hover { @apply bg-canvas; }
+
+  .num { font-variant-numeric: tabular-nums; }
+  .error-text { @apply text-sm font-medium text-danger; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; font-size: 12px; }
+  @page { margin: 12mm; }
+}
